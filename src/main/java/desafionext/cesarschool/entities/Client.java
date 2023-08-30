@@ -3,7 +3,9 @@ package desafionext.cesarschool.entities;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,7 +27,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor // contrutor sem atributos
 @Entity //diz que essa clase será mapeapa para uma tabela em um banco de dados relacional. 
 @AllArgsConstructor // Construtor com todos os atributos
-@RequestMapping
+
+@SpringBootApplication
+@RestController
+@RequestMapping("/client")
+
 @Table(name = "client")
 
 public class Client {
