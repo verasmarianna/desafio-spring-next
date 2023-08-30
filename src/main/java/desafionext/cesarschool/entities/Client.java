@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -24,27 +26,41 @@ import lombok.NoArgsConstructor;
 @Entity //diz que essa clase será mapeapa para uma tabela em um banco de dados relacional. 
 @AllArgsConstructor // Construtor com todos os atributos
 @RequestMapping
-//!@Table(name = "clients")
+@Table(name = "client")
 
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
+    //@Column(name = "client_id", nullable = false, updatable = false, unique = true)
     private Long client_id;
+
+    @Column(nullable = false)
     private String client_name;
-    private Date client_birthday;
+
+    @Column(nullable = false)
+    private int client_age;
+
+    @Column(nullable = false)
     private int client_dependents;
+
+    @Column(nullable = false)
     private double client_income;
     
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private client_marital_status client_marital_status;
+    @Column(nullable = false)
+    private Date createAt;
+    @Column(nullable = false)
+    private Date updateAt;
     
-    private Date createInfo;
-    private Date updateInfo;
-    
-    @OneToMany(mappedBy = "client_client_id")
-    private List<Vehicle> listVehicle;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "client")
+    private List<Vehicle> vehicle;
 
-    @OneToMany(mappedBy = "client_client_id")
-    private List<House> listHouses;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "client")
+    private List<House> houses;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "client")
+    private List<Insurance> insurance;
 }
